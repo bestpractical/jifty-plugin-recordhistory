@@ -1,0 +1,14 @@
+use inc::Module::Install;
+
+name           'Jifty-Plugin-RecordHistory';
+all_from       'lib/Jifty/Plugin/RecordHistory.pm';
+
+requires('Jifty' => '1.01209');
+
+build_requires 'Test::More';
+
+tests('t/t/*.t');
+
+auto_install;
+WriteAll;
+
