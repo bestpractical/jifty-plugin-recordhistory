@@ -6,7 +6,8 @@ use Jifty::DBI::Schema;
 use Jifty::Record schema {
     column record_id =>
         type is 'integer',
-        is mandatory;
+        is mandatory,
+        is immutable;
 };
 
 sub record {
