@@ -16,5 +16,15 @@ sub record {
     return $record;
 }
 
+sub delegate_current_user_can {
+    my $self  = shift;
+    my $right = shift;
+    my %args  = @_;
+
+    $right = 'update' if $right ne 'read';
+
+    return $self->record->current_user_can($right);
+}
+
 1;
 
