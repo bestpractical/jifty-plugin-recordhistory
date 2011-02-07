@@ -4,6 +4,11 @@ use strict;
 
 use Jifty::DBI::Schema;
 use Jifty::Record schema {
+    column record_class =>
+        type is 'varchar',
+        is mandatory,
+        is immutable;
+
     column record_id =>
         type is 'integer',
         is mandatory,
