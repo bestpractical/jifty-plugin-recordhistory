@@ -35,6 +35,16 @@ use Jifty::Record schema {
         refers_to Jifty::Plugin::RecordHistory::Model::TransactionEntryCollection by 'transaction';
 };
 
+sub create {
+    my $self = shift;
+    my %args = (
+        created_by => $self->current_user->user_object->id,
+        @_,
+        modified_at => DateTime->now->iso8601,
+    );
+    return $self->SUPER::create(%args);
+}
+
 sub record {
     my $self = shift;
     my $record = $self->record_class;
