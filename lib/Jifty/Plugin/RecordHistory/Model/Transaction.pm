@@ -13,6 +13,26 @@ use Jifty::Record schema {
         type is 'integer',
         is mandatory,
         is immutable;
+
+    # XXX: associate this with the app's user modl
+    column created_by =>
+        type is 'integer',
+        label is 'Created by',
+        is immutable;
+
+    column created_on =>
+        type is 'timestamp',
+        label is 'Created on',
+        filters are qw(Jifty::Filter::DateTime Jifty::DBI::Filter::DateTime),
+        is immutable;
+
+    column type =>
+        type is 'text',
+        label is 'Type',
+        is immutable;
+
+    column changes =>
+        refers_to Jifty::Plugin::RecordHistory::Model::TransactionEntryCollection by 'transaction';
 };
 
 sub record {
