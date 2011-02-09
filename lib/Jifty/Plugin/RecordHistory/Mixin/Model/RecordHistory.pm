@@ -30,7 +30,7 @@ sub import {
         my %args   = (
             column => undef,
             value  => undef,
-            @_,
+            %{ shift @_ },
         );
 
         # TODO: instead of always creating a change, see if there's an active one
