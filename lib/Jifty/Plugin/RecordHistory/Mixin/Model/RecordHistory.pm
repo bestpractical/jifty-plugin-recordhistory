@@ -15,6 +15,8 @@ sub import {
         my $self = shift;
         my $id   = ${ shift @_ };
 
+        return if !$id; # the actual create failed
+
         my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
         $change->create(
             record_class => ref($self),
