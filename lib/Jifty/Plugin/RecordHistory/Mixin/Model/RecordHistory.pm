@@ -43,7 +43,7 @@ sub import {
 
         # TODO: capture old_value somehow
         $change->add_change_field(
-            column    => $args{column},
+            field     => $args{column},
             new_value => $args{value},
         );
     });
