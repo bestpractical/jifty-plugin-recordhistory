@@ -5,7 +5,7 @@ use strict;
 use Jifty::DBI::Schema;
 use Jifty::Record schema {
     column transaction =>
-        refers to Jifty::Plugin::RecordHistory::Model::Transaction,
+        refers_to Jifty::Plugin::RecordHistory::Model::Transaction,
         label is 'Transaction',
         is immutable;
 
