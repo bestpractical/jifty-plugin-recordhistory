@@ -52,14 +52,19 @@ sub import {
 sub changes {
     my $self = shift;
     my $changes = Jifty::Plugin::RecordHistory::Model::ChangeCollection->new;
+
     $changes->limit(
         column => 'record_class',
         value  => ref($self),
     );
-
     $changes->limit(
         column => 'record_id',
         value  => $self->id,
+    );
+
+    $changes->order_by(
+        column => 'id',
+        order  => 'asc',
     );
 
     return $changes;
