@@ -38,7 +38,7 @@ use Jifty::Record schema {
 sub create {
     my $self = shift;
     my %args = (
-        created_by => $self->current_user->user_object->id,
+        created_by => $self->current_user->id,
         @_,
         modified_at => DateTime->now->iso8601,
     );
