@@ -62,5 +62,16 @@ sub delegate_current_user_can {
     return $self->record->current_user_can($right);
 }
 
+sub add_change_field {
+    my $self = shift;
+    my %args = @_;
+
+    my $change_field = Jifty::Plugin::RecordHistory::Model::ChangeField->new;
+    $change_field->create(
+        %args,
+        change => $self,
+    );
+}
+
 1;
 
