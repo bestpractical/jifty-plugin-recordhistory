@@ -11,6 +11,18 @@ sub import {
 
     $class->export_to_level(1, @_);
 
+    $caller->add_trigger(after_create => sub {
+        my $class = shift;
+        my $id = ${ shift @_ };
+
+        my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+        $change->create(
+            record_class => $class,
+            record_id    => $id,
+            type         => 'create',
+        );
+    });
+
     $caller->add_trigger(after_set => sub {
         my $record = shift;
         my %args   = (
