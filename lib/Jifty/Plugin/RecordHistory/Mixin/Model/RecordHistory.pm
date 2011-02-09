@@ -24,14 +24,26 @@ sub import {
     });
 
     $caller->add_trigger(after_set => sub {
-        my $record = shift;
+        my $self = shift;
         my %args   = (
             column => undef,
             value  => undef,
             @_,
         );
 
-        # add to the current change
+        # TODO: instead of always creating a change, see if there's an active one
+        my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+        $change->create(
+            record_class => ref($self),
+            record_id    => $self->id,
+            type         => 'update',
+        );
+
+        # TODO: capture old_value somehow
+        $change->add_change_field(
+            column    => $args{column},
+            new_value => $args{value},
+        );
     });
 }
 
