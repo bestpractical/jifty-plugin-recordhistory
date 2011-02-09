@@ -40,7 +40,7 @@ sub create {
     my %args = (
         created_by => $self->current_user->id,
         @_,
-        modified_at => DateTime->now->iso8601,
+        created_on => DateTime->now->iso8601,
     );
     return $self->SUPER::create(%args);
 }
