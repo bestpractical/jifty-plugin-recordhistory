@@ -31,7 +31,7 @@ use Jifty::Record schema {
         label is 'Type',
         is immutable;
 
-    column changes =>
+    column change_fields =>
         refers_to Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection by 'change';
 };
 
