@@ -17,6 +17,6 @@ is($change->record_id, $book->id, 'record id');
 is($change->record_class, 'TestApp::Plugin::RecordHistory::Model::Book', 'record class');
 is($change->type, 'create', 'change has type create');
 
-isa_ok($change->change_fields, 'Jifty::Plugin::RecordHistory::Model::ChangeFIeldCollection', 'change field collection');
+isa_ok($change->change_fields, 'Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection', 'change field collection');
 is($change->change_fields->count, 0, 'generate no ChangeFields for create');
 
