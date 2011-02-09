@@ -47,7 +47,7 @@ sub create {
 
 sub record {
     my $self = shift;
-    my $record = $self->record_class;
+    my $record = $self->record_class->new;
     $record->load($self->record_id);
     return $record;
 }

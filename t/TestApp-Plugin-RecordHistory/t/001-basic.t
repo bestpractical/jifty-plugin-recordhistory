@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 8;
+use Jifty::Test::Dist tests => 9;
 
 my $book = TestApp::Plugin::RecordHistory::Model::Book->new;
 $book->create(
@@ -16,6 +16,7 @@ my $change = $book->changes->first;
 is($change->record_id, $book->id, 'record id');
 is($change->record_class, 'TestApp::Plugin::RecordHistory::Model::Book', 'record class');
 is($change->type, 'create', 'change has type create');
+is($change->record->title, '1984', 'change->record');
 
 isa_ok($change->change_fields, 'Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection', 'change field collection');
 is($change->change_fields->count, 0, 'generate no ChangeFields for create');
