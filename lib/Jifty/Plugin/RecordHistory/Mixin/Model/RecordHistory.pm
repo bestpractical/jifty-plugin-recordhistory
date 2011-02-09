@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Exporter';
 
-our @EXPORT = qw(transactions);
+our @EXPORT = qw(changes);
 
 sub import {
     my $class = shift;
@@ -19,24 +19,24 @@ sub import {
             @_,
         );
 
-        # add to the current transaction
+        # add to the current change
     });
 }
 
-sub transactions {
+sub changes {
     my $self = shift;
-    my $transactions = Jifty::Plugin::RecordHistory::Model::TransactionCollection->new;
-    $transactions->limit(
+    my $changes = Jifty::Plugin::RecordHistory::Model::ChangeCollection->new;
+    $changes->limit(
         column => 'record_class',
         value  => ref($self),
     );
 
-    $transactions->limit(
+    $changes->limit(
         column => 'record_id',
         value  => $self->id,
     );
 
-    return $transactions;
+    return $changes;
 }
 
 1;

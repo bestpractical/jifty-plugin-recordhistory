@@ -1,4 +1,4 @@
-package Jifty::Plugin::RecordHistory::Model::Transaction;
+package Jifty::Plugin::RecordHistory::Model::Change;
 use warnings;
 use strict;
 
@@ -32,7 +32,7 @@ use Jifty::Record schema {
         is immutable;
 
     column changes =>
-        refers_to Jifty::Plugin::RecordHistory::Model::TransactionEntryCollection by 'transaction';
+        refers_to Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection by 'change';
 };
 
 sub create {
