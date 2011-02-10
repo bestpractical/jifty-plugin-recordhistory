@@ -117,6 +117,8 @@ template 'change' => sub {
 template 'change-create' => sub {
     my $self   = shift;
     my $change = shift;
+
+    outs _('Record created.');
 };
 
 template 'change-update' => sub {
