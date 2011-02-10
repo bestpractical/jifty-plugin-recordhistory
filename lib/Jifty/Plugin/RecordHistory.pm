@@ -2,6 +2,7 @@ package Jifty::Plugin::RecordHistory;
 use strict;
 use warnings;
 use base qw/Jifty::Plugin/;
+use Jifty::Plugin::RecordHistory::View;
 
 our $VERSION = '0.01';
 
