@@ -71,22 +71,21 @@ template 'index.html' => page { title => shift->page_title } content {
 };
 
 template 'header' => sub {
-    my $self = shift;
-    h1 { _('History for %1', $self->object_type) };
 };
 
 template 'footer' => sub {
 };
 
 template 'list' => sub {
-    show 'header';
-    show 'changes';
-    show 'footer';
+    my $record = $self->load_record;
+    show 'header' => $record;
+    show 'changes' => $record;
+    show 'footer' => $record;
 };
 
 template 'changes' => sub {
-    my $self = shift;
-    my $record = $self->load_record;
+    my $self    = shift;
+    my $record  = shift;
     my $changes = $record->changes;
 
     while (my $change = $changes->next) {
