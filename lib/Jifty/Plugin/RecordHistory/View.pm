@@ -135,6 +135,7 @@ template 'change-update' => sub {
     my $change_fields = $change->change_fields;
     return if !$change_fields->count;
 
+    outs _('Record updated.');
     ul {
         while (my $change_field = $change_fields->next) {
             show 'change_field' => $change_field;
