@@ -64,6 +64,16 @@ sub import {
             $change->delete;
         }
     });
+
+    $caller->add_trigger(start_update_action => sub {
+        my $self = shift;
+        $self->start_change;
+    });
+
+    $caller->add_trigger(end_update_action => sub {
+        my $self = shift;
+        $self->end_change;
+    });
 }
 
 sub changes {
