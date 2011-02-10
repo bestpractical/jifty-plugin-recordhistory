@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Exporter';
 
-our @EXPORT = qw(changes);
+our @EXPORT = qw(changes current_change);
 
 sub import {
     my $class = shift;
@@ -33,13 +33,15 @@ sub import {
             %{ shift @_ },
         );
 
-        # TODO: instead of always creating a change, see if there's an active one
-        my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
-        $change->create(
-            record_class => ref($self),
-            record_id    => $self->id,
-            type         => 'update',
-        );
+        my $change = $self->current_change || do {
+            my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+            $change->create(
+                record_class => ref($self),
+                record_id    => $self->id,
+                type         => 'update',
+            );
+            $change
+        };
 
         # TODO: capture old_value somehow
         $change->add_change_field(
@@ -83,6 +85,11 @@ sub changes {
     );
 
     return $changes;
+}
+
+sub current_change {
+    my $self = shift;
+    return $self->{change};
 }
 
 1;
