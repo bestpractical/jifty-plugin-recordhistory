@@ -48,4 +48,3 @@ TODO: {
 }
 is($change_fields[1]->new_value, 'Brave New World', 'new value of author is BNW');
 
-

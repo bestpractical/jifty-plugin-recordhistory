@@ -49,3 +49,4 @@ is($changes->count, 0, 'no more changes since we deleted the record');
 my $change_fields = Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection->new;
 $change_fields->unlimit;
 is($change_fields->count, 0, 'no more change fields since we deleted the record');
+
