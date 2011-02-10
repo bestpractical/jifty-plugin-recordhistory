@@ -176,7 +176,7 @@ template 'change_field' => sub {
 
     li {
         { class is 'change-field' };
-        _("%1 changed from '%2' to '%3'.", $field, $old, $new);
+        _("%1 changed from '%2' to '%3'", $field, $old, $new);
     };
 };
 

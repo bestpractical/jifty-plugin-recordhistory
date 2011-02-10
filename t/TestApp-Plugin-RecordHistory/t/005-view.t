@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 20;
+use Jifty::Test::Dist tests => 8;
 my $server = Jifty::Test->make_server;
 isa_ok($server, 'Jifty::TestServer');
 my $URL  = $server->started_ok;
@@ -20,4 +20,8 @@ $book->set_author('Aldous Huxley');
 $book->end_change;
 
 $mech->get_ok($URL . '/book/history?id=' . $book->id);
+$mech->text_contains("Record created by 0");
+$mech->text_contains("Record updated by 0");
+$mech->text_contains("title changed from '1984' to 'Brave New World'");
+$mech->text_contains("author changed from '' to 'Aldous Huxley'");
 
