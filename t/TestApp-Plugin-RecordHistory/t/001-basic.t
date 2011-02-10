@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 18;
+use Jifty::Test::Dist tests => 20;
 
 my $book = TestApp::Plugin::RecordHistory::Model::Book->new;
 $book->create(
@@ -40,3 +40,12 @@ TODO: {
     is($change_field->old_value, '1984');
 }
 
+$book->delete;
+
+my $changes = Jifty::Plugin::RecordHistory::Model::ChangeCollection->new;
+$changes->unlimit;
+is($changes->count, 0, 'no more changes since we deleted the record');
+
+my $change_fields = Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection->new;
+$change_fields->unlimit;
+is($change_fields->count, 0, 'no more change fields since we deleted the record');
