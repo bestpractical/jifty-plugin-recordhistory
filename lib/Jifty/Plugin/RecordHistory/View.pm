@@ -84,10 +84,19 @@ template 'list' => sub {
     show 'footer';
 };
 
+template 'no-changes' => sub {
+    p { _("No changes.") };
+};
+
 template 'changes' => sub {
     my $self    = shift;
     my $record  = get 'record';
     my $changes = $record->changes;
+
+    if ($changes->count == 0) {
+        show 'no-changes';
+        return;
+    }
 
     while (my $change = $changes->next) {
         show 'change' => $change;
