@@ -77,15 +77,16 @@ template 'footer' => sub {
 };
 
 template 'list' => sub {
-    my $record = $self->load_record;
-    show 'header' => $record;
-    show 'changes' => $record;
-    show 'footer' => $record;
+    my $self = shift;
+    set record => $self->load_record;
+    show 'header';
+    show 'changes';
+    show 'footer';
 };
 
 template 'changes' => sub {
     my $self    = shift;
-    my $record  = shift;
+    my $record  = get 'record';
     my $changes = $record->changes;
 
     while (my $change = $changes->next) {
