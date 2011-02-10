@@ -45,6 +45,11 @@ sub create {
     return $self->SUPER::create(%args);
 }
 
+sub deferred_create {
+    my $self = shift;
+    return $self->{deferred_create} = { @_ };
+}
+
 sub record {
     my $self = shift;
     my $record = $self->record_class->new;
@@ -65,6 +70,10 @@ sub delegate_current_user_can {
 sub add_change_field {
     my $self = shift;
     my %args = @_;
+
+    if (my $args = delete $self->{deferred_create}) {
+        $self->create(%$args);
+    }
 
     my $change_field = Jifty::Plugin::RecordHistory::Model::ChangeField->new;
     $change_field->create(

@@ -109,7 +109,12 @@ sub start_change {
     );
 
     my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
-    $change->create(%args);
+    if ($type eq 'update') {
+        $change->deferred_create(%args);
+    }
+    else {
+        $change->create(%args);
+    }
 
     return $self->{change} = $change;
 }
