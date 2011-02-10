@@ -168,6 +168,8 @@ template 'actor' => sub {
     my $self  = shift;
     my $actor = shift;
 
+    return outs $actor if !ref($actor);
+
     return outs _('somebody') if !$actor->id || !$actor->current_user_can('read');
     return outs $actor->email if $actor->can('email');
     return outs _('user #%1', $actor->id);
