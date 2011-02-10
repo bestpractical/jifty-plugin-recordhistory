@@ -128,7 +128,10 @@ template 'change-create' => sub {
     my $self   = shift;
     my $change = shift;
 
-    outs _('Record created.');
+    span {
+        outs _('Record created by ');
+        show 'actor' => $change->created_by;
+    };
 };
 
 template 'change-update' => sub {
@@ -138,7 +141,11 @@ template 'change-update' => sub {
     my $change_fields = $change->change_fields;
     return if !$change_fields->count;
 
-    outs _('Record updated.');
+    span {
+        outs _('Record updated by ');
+        show 'actor' => $change->created_by;
+    };
+
     ul {
         while (my $change_field = $change_fields->next) {
             show 'change_field' => $change_field;
@@ -155,6 +162,15 @@ template 'change_field' => sub {
     my $new   = $change_field->new_value;
 
     li { _("%1 changed from '%2' to '%3'.", $field, $old, $new) };
+};
+
+template 'actor' => sub {
+    my $self  = shift;
+    my $actor = shift;
+
+    return outs _('somebody') if !$actor->id || !$actor->current_user_can('read');
+    return outs $actor->email if $actor->can('email');
+    return outs _('user #%1', $actor->id);
 };
 
 1;
