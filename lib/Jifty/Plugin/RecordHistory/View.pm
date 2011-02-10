@@ -112,9 +112,13 @@ template 'change-update' => sub {
     my $change = shift;
 
     my $change_fields = $change->change_fields;
-    while (my $change_field = $change_fields->next) {
-        show 'change_field' => $change_field;
-    }
+    return if !$change_fields->count;
+
+    ul {
+        while (my $change_field = $change_fields->next) {
+            show 'change_field' => $change_field;
+        }
+    };
 };
 
 template 'change_field' => sub {
@@ -125,7 +129,7 @@ template 'change_field' => sub {
     my $old   = $change_field->old_value;
     my $new   = $change_field->new_value;
 
-    outs _("%1 changed from '%2' to '%3'.", $field, $old, $new);
+    li { _("%1 changed from '%2' to '%3'.", $field, $old, $new) };
 };
 
 1;
