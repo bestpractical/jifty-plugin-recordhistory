@@ -85,7 +85,10 @@ template 'list' => sub {
 };
 
 template 'no-changes' => sub {
-    p { _("No changes.") };
+    p {
+        { class is 'no-changes' };
+        _("No changes.")
+    };
 };
 
 template 'changes' => sub {
@@ -99,11 +102,16 @@ template 'changes' => sub {
     }
 
     dl {
+        { class is 'changes' };
+
         my $prev_date = '';
         while (my $change = $changes->next) {
             my $date = $change->created_on->ymd;
             if ($date ne $prev_date) {
-                dt { $date };
+                dt {
+                    { class is 'date' };
+                    $date
+                };
                 $prev_date = $date;
             }
 
@@ -119,7 +127,11 @@ template 'change' => sub {
     my $template = 'change-' . $change->type;
 
     dd {
-        div { $change->created_on->hms };
+        { class is 'change' };
+        div {
+            { class is 'time' };
+            $change->created_on->hms
+        };
         show $template => $change
     };
 };
@@ -147,6 +159,7 @@ template 'change-update' => sub {
     };
 
     ul {
+        { class is 'change-fields' };
         while (my $change_field = $change_fields->next) {
             show 'change_field' => $change_field;
         }
@@ -161,7 +174,10 @@ template 'change_field' => sub {
     my $old   = $change_field->old_value;
     my $new   = $change_field->new_value;
 
-    li { _("%1 changed from '%2' to '%3'.", $field, $old, $new) };
+    li {
+        { class is 'change-field' };
+        _("%1 changed from '%2' to '%3'.", $field, $old, $new);
+    };
 };
 
 template 'actor' => sub {
