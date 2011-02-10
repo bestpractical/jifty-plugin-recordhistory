@@ -98,8 +98,15 @@ template 'changes' => sub {
         return;
     }
 
-    ol {
+    dl {
+        my $prev_date = '';
         while (my $change = $changes->next) {
+            my $date = $change->created_on->ymd;
+            if ($date ne $prev_date) {
+                dt { $date };
+                $prev_date = $date;
+            }
+
             show 'change' => $change;
         }
     };
@@ -111,7 +118,7 @@ template 'change' => sub {
 
     my $template = 'change-' . $change->type;
 
-    li { show $template => $change };
+    dd { show $template => $change };
 };
 
 template 'change-create' => sub {
