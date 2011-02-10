@@ -98,9 +98,11 @@ template 'changes' => sub {
         return;
     }
 
-    while (my $change = $changes->next) {
-        show 'change' => $change;
-    }
+    ol {
+        while (my $change = $changes->next) {
+            show 'change' => $change;
+        }
+    };
 };
 
 template 'change' => sub {
@@ -109,7 +111,7 @@ template 'change' => sub {
 
     my $template = 'change-' . $change->type;
 
-    show $template => $change;
+    li { show $template => $change };
 };
 
 template 'change-create' => sub {
