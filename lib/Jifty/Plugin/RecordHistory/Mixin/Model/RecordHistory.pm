@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Exporter';
 
-our @EXPORT = qw(changes current_change);
+our @EXPORT = qw(changes start_change end_change current_change);
 
 sub import {
     my $class = shift;
@@ -85,6 +85,27 @@ sub changes {
     );
 
     return $changes;
+}
+
+sub start_change {
+    my $self = shift;
+    my $type = shift || 'update';
+
+    my %args = (
+        record_class => ref($self),
+        record_id    => $self->id,
+        type         => $type,
+        @_,
+    );
+
+    my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+    $change->create(%args);
+    return $self->{change} = $change;
+}
+
+sub end_change {
+    my $self = shift;
+    return delete $self->{change};
 }
 
 sub current_change {
