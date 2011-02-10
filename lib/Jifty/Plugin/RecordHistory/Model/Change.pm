@@ -82,5 +82,18 @@ sub add_change_field {
     );
 }
 
+sub created_by {
+    my $self = shift;
+    my $id = $self->_value('created_by');
+    my $class = Jifty->app_class('Model', 'User');
+
+    # if there's no User class then just continue returning the id
+    return $id unless $class->can('new');
+
+    my $user = $class->new;
+    $user->load($id);
+    return $user;
+}
+
 1;
 
