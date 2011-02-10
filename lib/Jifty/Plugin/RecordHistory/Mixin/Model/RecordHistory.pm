@@ -50,7 +50,7 @@ sub import {
         );
     });
 
-    # we hook into before_delete so we can still access changes etc
+    # we hook into before_delete so we can still access ->changes etc
     $caller->add_trigger(before_delete => sub {
         my $self = shift;
 
@@ -65,6 +65,8 @@ sub import {
         }
     });
 
+    # wrap update actions in a change so we can group them as one change with
+    # many field changes
     $caller->add_trigger(start_update_action => sub {
         my $self = shift;
         $self->start_change;
