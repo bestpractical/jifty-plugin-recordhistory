@@ -80,16 +80,16 @@ template 'footer' => sub {
 
 template 'list' => sub {
     show 'header';
-
     show 'changes';
-
     show 'footer';
 };
 
 template 'changes' => sub {
+    my $self = shift;
     my $record = $self->load_record;
+    my $changes = $record->changes;
 
-    while (my $change = $record->changes) {
+    while (my $change = $changes->next) {
         show 'change' => $change;
     }
 };
