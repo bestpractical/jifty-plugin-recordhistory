@@ -123,8 +123,8 @@ template 'change_field' => sub {
     my $change_field = shift;
 
     my $field = $change_field->field;
-    my $old   = $change_fied->old_value;
-    my $new   = $change_fied->new_value;
+    my $old   = $change_field->old_value;
+    my $new   = $change_field->new_value;
 
     outs _("%1 changed from '%2' to '%3'.", $field, $old, $new);
 };
