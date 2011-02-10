@@ -28,8 +28,9 @@ sub import {
     $caller->add_trigger(after_set => sub {
         my $self = shift;
         my %args   = (
-            column => undef,
-            value  => undef,
+            column    => undef,
+            value     => undef,
+            old_value => undef,
             %{ shift @_ },
         );
 
@@ -46,6 +47,7 @@ sub import {
         # TODO: capture old_value somehow
         $change->add_change_field(
             field     => $args{column},
+            old_value => $args{old_value},
             new_value => $args{value},
         );
     });

@@ -28,16 +28,10 @@ is($change->change_fields->count, 2, 'two fields updated');
 
 my @change_fields = sort { $a->field cmp $b->field } @{ $change->change_fields->items_array_ref };
 is($change_fields[0]->field, 'author', 'first update is to author');
-TODO: {
-    local $TODO = "we don't get old_value in the callback yet";
-    is($change_fields[0]->old_value, 'George Orwell', 'old value of author is George');
-}
+is($change_fields[0]->old_value, 'George Orwell', 'old value of author is George');
 is($change_fields[0]->new_value, 'Aldous Huxley', 'new value of author is Aldous');
 
 is($change_fields[1]->field, 'title', 'second update is to title');
-TODO: {
-    local $TODO = "we don't get old_value in the callback yet";
-    is($change_fields[1]->old_value, '1984', 'old value of author is 1984');
-}
+is($change_fields[1]->old_value, '1984', 'old value of author is 1984');
 is($change_fields[1]->new_value, 'Brave New World', 'new value of author is BNW');
 
