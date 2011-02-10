@@ -118,7 +118,10 @@ template 'change' => sub {
 
     my $template = 'change-' . $change->type;
 
-    dd { show $template => $change };
+    dd {
+        div { $change->created_on->hms };
+        show $template => $change
+    };
 };
 
 template 'change-create' => sub {
