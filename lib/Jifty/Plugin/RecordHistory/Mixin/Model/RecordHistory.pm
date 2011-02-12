@@ -3,7 +3,11 @@ use strict;
 use warnings;
 use base 'Exporter';
 
-our @EXPORT = qw(changes start_change end_change current_change);
+our @EXPORT = qw(
+    changes
+    start_change end_change current_change
+    hide_change_field
+);
 
 sub import {
     my $class = shift;
@@ -131,6 +135,10 @@ sub end_change {
 sub current_change {
     my $self = shift;
     return $self->{change};
+}
+
+sub hide_change_field {
+    return 0;
 }
 
 1;

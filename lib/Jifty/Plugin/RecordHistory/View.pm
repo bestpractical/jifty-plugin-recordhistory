@@ -161,6 +161,7 @@ template 'change-update' => sub {
     ul {
         { class is 'change-fields' };
         while (my $change_field = $change_fields->next) {
+            next if $change_field->record->hide_change_field($change_field);
             show 'change_field' => $change_field;
         }
     };
