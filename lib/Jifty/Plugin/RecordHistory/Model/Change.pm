@@ -53,8 +53,14 @@ sub deferred_create {
 # a "record" method that walks around ACLs
 sub __record {
     my $self = shift;
-    my $record = $self->__value('record_class')->new;
-    $record->load($self->__value('record_id'));
+    my %args = @_;
+
+    my $class = $args{record_class} || $self->__value('record_class');
+    my $id    = $args{record_id}    || $self->__value('record_id');
+
+    my $record = $class->new;
+    $record->load($id);
+
     return $record;
 }
 
@@ -72,7 +78,7 @@ sub delegate_current_user_can {
 
     $right = 'update' if $right ne 'read';
 
-    return $self->__record->current_user_can($right);
+    return $self->__record(%args)->current_user_can($right);
 }
 
 sub add_change_field {
