@@ -7,7 +7,7 @@ requires('Jifty' => '1.01209');
 
 build_requires 'Test::More';
 
-tests('t/t/*.t');
+tests('t/*/t/*.t');
 
 auto_install;
 WriteAll;
