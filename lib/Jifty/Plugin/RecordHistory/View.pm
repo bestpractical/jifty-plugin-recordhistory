@@ -141,7 +141,8 @@ template 'change-create' => sub {
     my $change = shift;
 
     span {
-        outs _('Record created by ');
+        show 'record' => $change->record;
+        outs _(' created by ');
         show 'actor' => $change->created_by;
     };
 };
@@ -154,7 +155,8 @@ template 'change-update' => sub {
     return if !$change_fields->count;
 
     span {
-        outs _('Record updated by ');
+        show 'record' => $change->record;
+        outs _(' updated by ');
         show 'actor' => $change->created_by;
     };
 
@@ -179,6 +181,14 @@ template 'change_field' => sub {
         { class is 'change-field' };
         _("%1 changed from '%2' to '%3'", $field, $old, $new);
     };
+};
+
+template 'record' => sub {
+    my $self   = shift;
+    my $record = shift;
+
+    (my $class = ref $record) =~ s/.*:://;
+    return outs $class;
 };
 
 template 'actor' => sub {
