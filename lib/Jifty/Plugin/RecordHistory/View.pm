@@ -127,7 +127,7 @@ template 'change' => sub {
     my $template = 'change-' . $change->type;
 
     dd {
-        { class is 'change' };
+        { class is 'change change-' . $change->type };
         div {
             { class is 'time' };
             $change->created_on->hms
