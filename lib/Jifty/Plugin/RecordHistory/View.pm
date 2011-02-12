@@ -154,16 +154,22 @@ template 'change-update' => sub {
     my $change_fields = $change->change_fields;
     return if !$change_fields->count;
 
+    my $record = $change->record;
+
     span {
-        show 'record' => $change->record;
+        show 'record' => $record;
         outs _(' updated by ');
         show 'actor' => $change->created_by;
     };
 
+    my @change_fields = grep { !$record->hide_change_field($_) }
+                        @{ $change->change_fields->items_array_ref };
+
+    return if !@change_fields;
+
     ul {
         { class is 'change-fields' };
-        while (my $change_field = $change_fields->next) {
-            next if $change_field->record->hide_change_field($change_field);
+        for my $change_field (@change_fields) {
             show 'change_field' => $change_field;
         }
     };
