@@ -32,7 +32,12 @@ sub record {
 
 sub delegate_current_user_can {
     my $self  = shift;
-    $self->change->delegate_current_user_can(@_);
+    my $right = shift;
+    my %args  = @_;
+
+    my $change = $args{change} || $self->change;
+
+    $change->delegate_current_user_can($right, %args);
 }
 
 1;
