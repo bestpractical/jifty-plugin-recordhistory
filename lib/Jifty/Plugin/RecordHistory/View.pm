@@ -189,17 +189,16 @@ template 'change_field' => sub {
             class is 'field-name';
             outs $field;
         };
-        outs " changed from '";
+        outs " changed from ";
         span {
             class is 'old-value';
             outs $old;
         };
-        outs "' to '";
+        outs " to ";
         span {
             class is 'new-value';
             outs $new;
         };
-        outs "'";
     };
 };
 
