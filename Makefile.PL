@@ -3,6 +3,7 @@ use inc::Module::Install;
 name           'Jifty-Plugin-RecordHistory';
 all_from       'lib/Jifty/Plugin/RecordHistory.pm';
 
+requires('Jifty::DBI' => '0.66');
 requires('Jifty' => '1.01209');
 
 build_requires 'Test::More';
