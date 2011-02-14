@@ -185,7 +185,21 @@ template 'change_field' => sub {
 
     li {
         { class is 'change-field' };
-        _("%1 changed from '%2' to '%3'", $field, $old, $new);
+        span {
+            class is 'field-name';
+            outs $field;
+        };
+        outs " changed from '";
+        span {
+            class is 'old-value';
+            outs $old;
+        };
+        outs "' to '";
+        span {
+            class is 'new-value';
+            outs $new;
+        };
+        outs "'";
     };
 };
 
