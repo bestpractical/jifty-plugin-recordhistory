@@ -1,0 +1,7 @@
+.change-field .field-name {
+    font-weight: bold;
+}
+
+.change-field .old-value, .change-field .new-value {
+    font-weight: bold;
+}

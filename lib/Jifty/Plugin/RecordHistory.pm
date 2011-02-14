@@ -5,6 +5,10 @@ use base qw/Jifty::Plugin/;
 
 our $VERSION = '0.01';
 
+sub init {
+    Jifty->web->add_css('record-history.css');
+}
+
 1;
 
 __END__
