@@ -9,6 +9,7 @@ build_requires 'Test::More';
 
 tests('t/*/t/*.t');
 
+install_share;
 auto_install;
 WriteAll;
 
