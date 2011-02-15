@@ -5,3 +5,8 @@
 .change-field .old-value, .change-field .new-value {
     font-weight: bold;
 }
+
+.change-field .no-value {
+    font-style: italic;
+}
+

@@ -191,13 +191,25 @@ template 'change_field' => sub {
         };
         outs " changed from ";
         span {
-            class is 'old-value';
-            outs $old;
+            if (!defined($old)) {
+                class is 'old-value no-value';
+                outs '(no value)';
+            }
+            else {
+                class is 'old-value';
+                outs $old;
+            }
         };
         outs " to ";
         span {
-            class is 'new-value';
-            outs $new;
+            if (!defined($new)) {
+                class is 'new-value no-value';
+                outs '(no value)';
+            }
+            else {
+                class is 'new-value';
+                outs $new;
+            }
         };
     };
 };
