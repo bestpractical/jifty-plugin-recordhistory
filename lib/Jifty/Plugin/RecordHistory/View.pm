@@ -132,7 +132,10 @@ template 'change' => sub {
             { class is 'time' };
             $change->created_on->hms
         };
-        show $template => $change
+        div {
+            { class is 'change-details' };
+            show $template => $change
+        };
     };
 };
 
