@@ -69,7 +69,7 @@ sub load_record {
 }
 
 template 'index.html' => page { title => shift->page_title } content {
-    show './list';
+    show 'list';
 };
 
 template 'header' => sub {
