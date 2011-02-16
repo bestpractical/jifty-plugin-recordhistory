@@ -146,7 +146,7 @@ template 'change-create' => sub {
     my $change = shift;
 
     span {
-        show 'record' => $change->record;
+        show 'record_type' => $change->record;
         outs _(' created by ');
         show 'actor' => $change->created_by;
     };
@@ -162,7 +162,7 @@ template 'change-update' => sub {
     my $record = $change->record;
 
     span {
-        show 'record' => $record;
+        show 'record_type' => $record;
         outs _(' updated by ');
         show 'actor' => $change->created_by;
     };
@@ -219,7 +219,7 @@ template 'change_field' => sub {
     };
 };
 
-template 'record' => sub {
+template 'record_type' => sub {
     my $self   = shift;
     my $record = shift;
 
