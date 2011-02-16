@@ -37,7 +37,9 @@ sub object_type {
 
 sub page_title {
     my $self = shift;
-    return _('History for %1', $self->object_type);
+    return _('History for %1: %2',
+             $self->object_type,
+             $self->load_record->brief_description);
 }
 
 sub record_class {
