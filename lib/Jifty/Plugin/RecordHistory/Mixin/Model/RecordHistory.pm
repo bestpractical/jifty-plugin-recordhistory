@@ -11,9 +11,11 @@ our @EXPORT = qw(
 
 sub import {
     my $class = shift;
+    my %args  = @_;
+
     my $caller = caller;
 
-    $class->export_to_level(1, @_);
+    $class->export_to_level(1);
 
     $caller->add_trigger(after_create => sub {
         my $self = shift;
