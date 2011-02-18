@@ -1,3 +1,8 @@
+0.04  2011-02-18
+    - Allow control of cascaded_delete (Sartak)
+    - Allow control over current_user_can on Change and ChangeField by
+      implementing current_user_can_for_change in your record class (Sartak)
+
 0.03  2011-02-17
     - Provide a brief description of the object being viewed in the page title (trs)
     - Rename the record template to record_type (trs)
