@@ -81,6 +81,17 @@ Alternatively, if you want to extend the default templates, you can subclass
 L<Jifty::Plugin::RecordHistory::View> in the same way as
 L<Jifty::View::Declare::CRUD>.
 
+=head2 Access control
+
+By default, we delegate
+L<Jifty::Plugin::RecordHistory::Model::Change/current_user_can> and
+L<Jifty::Plugin::RecordHistory::Model::ChangeField/current_user_can> to the
+record class. The logic is if you can read the record, you can read its changes
+and its change fields. If you can change the record you can create, update, and
+delete changes and their change fields. If you want more fine-grained control
+over this, you can implement a C<current_user_can_for_change> method in your
+record class which, if present, we will use instead of this logic.
+
 =head1 SEE ALSO
 
 L<Jifty::Plugin::ActorMetadata>
