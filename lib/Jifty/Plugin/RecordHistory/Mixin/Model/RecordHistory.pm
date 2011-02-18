@@ -11,7 +11,10 @@ our @EXPORT = qw(
 
 sub import {
     my $class = shift;
-    my %args  = @_;
+    my %args  = (
+        cascaded_delete => 1,
+        @_,
+    );
 
     my $caller = caller;
 
@@ -58,20 +61,22 @@ sub import {
         );
     });
 
-    # we hook into before_delete so we can still access ->changes etc
-    $caller->add_trigger(before_delete => sub {
-        my $self = shift;
+    if ($args{cascaded_delete}) {
+        # we hook into before_delete so we can still access ->changes etc
+        $caller->add_trigger(before_delete => sub {
+            my $self = shift;
 
-        my $changes = $self->changes;
-        while (my $change = $changes->next) {
-            my $change_fields = $change->change_fields;
-            while (my $change_field = $change_fields->next) {
-                $change_field->delete;
+            my $changes = $self->changes;
+            while (my $change = $changes->next) {
+                my $change_fields = $change->change_fields;
+                while (my $change_field = $change_fields->next) {
+                    $change_field->delete;
+                }
+
+                $change->delete;
             }
-
-            $change->delete;
-        }
-    });
+        });
+    }
 
     # wrap update actions in a change so we can group them as one change with
     # many field changes

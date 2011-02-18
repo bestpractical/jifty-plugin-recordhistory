@@ -42,6 +42,22 @@ and using the mixin to your record class(es) to enjoy transaction history. The
 mixin even hooks into Jifty itself to observe record creation, updates, and
 deletions.
 
+=head2 Configuration
+
+When you're importing the mixin you have several options to control the behavior
+of history. Here are the defaults:
+
+    use Jifty::Plugin::RecordHistory::Mixin::Model::RecordHistory (
+        cascaded_delete => 1,
+    );
+
+If C<cascaded_delete> is true, then
+L<Jifty::Plugin::RecordHistory::Model::Change> and
+L<Jifty::Plugin::RecordHistory::Model::ChangeField> records are deleted at the
+same time the original record they refer to is deleted. If C<cascaded_delete>
+is false, then the Change and ChangeField records persist even if the original
+record is deleted.
+
 =head2 Grouping
 
 By default, the only mechanism that groups together change_fields onto a single
