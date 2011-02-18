@@ -6,6 +6,8 @@ MANIFEST\.SKIP
 ^log/
 ^var/.*\.pid
 t/TestApp-Plugin-RecordHistory/mason
+t/TestApp-Plugin-RecordHistory/t/mailbox
+t/TestApp-Plugin-RecordHistory/testapp_plugin_recordhistory
 
 # ExtUtils::MakeMaker's default MANIFEST.SKIP
 \B\.git\b
