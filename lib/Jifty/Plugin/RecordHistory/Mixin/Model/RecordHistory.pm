@@ -13,6 +13,7 @@ sub import {
     my $class = shift;
     my %args  = (
         cascaded_delete => 1,
+        delete_change   => 0,
         @_,
     );
 
@@ -75,6 +76,20 @@ sub import {
 
                 $change->delete;
             }
+        });
+    }
+
+    # this is intentionally added AFTER the previous trigger
+    if ($args{delete_change}) {
+        $caller->add_trigger(before_delete => sub {
+            my $self = shift;
+
+            my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+            $change->create(
+                record_class => ref($self),
+                record_id    => $self->id,
+                type         => 'delete',
+            );
         });
     }
 

@@ -49,6 +49,7 @@ of history. Here are the defaults:
 
     use Jifty::Plugin::RecordHistory::Mixin::Model::RecordHistory (
         cascaded_delete => 1,
+        delete_change   => 0,
     );
 
 If C<cascaded_delete> is true, then
@@ -57,6 +58,12 @@ L<Jifty::Plugin::RecordHistory::Model::ChangeField> records are deleted at the
 same time the original record they refer to is deleted. If C<cascaded_delete>
 is false, then the Change and ChangeField records persist even if the original
 record is deleted.
+
+If C<delete_change> is true, then when your record is deleted we create a
+L<Jifty::Plugin::RecordHistory::Model::Change> record whose type is C<delete>.
+If C<delete_change> is false, then we do not record the deletion. If
+both C<cascaded_delete> I<and> C<delete_change> are true, then you will end up
+with only one change after the record is deleted -- the C<delete>.
 
 =head2 Grouping
 
