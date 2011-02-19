@@ -79,7 +79,8 @@ sub import {
         });
     }
 
-    # this is intentionally added AFTER the previous trigger
+    # this is intentionally added AFTER the previous trigger, otherwise we'll
+    # create the delete change in this trigger then delete it in the other
     if ($args{delete_change}) {
         $caller->add_trigger(before_delete => sub {
             my $self = shift;
