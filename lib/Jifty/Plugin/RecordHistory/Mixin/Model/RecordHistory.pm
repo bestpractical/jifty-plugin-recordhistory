@@ -27,8 +27,9 @@ sub import {
 
         return if !$id; # the actual create failed
 
-        my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+        my $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => Jifty::CurrentUser->superuser);
         $change->create(
+            created_by   => $self->current_user->id,
             record_class => ref($self),
             record_id    => $id,
             type         => 'create',
@@ -45,8 +46,9 @@ sub import {
         );
 
         my $change = $self->current_change || do {
-            my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+            my $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => Jifty::CurrentUser->superuser);
             $change->create(
+                created_by   => $self->current_user->id,
                 record_class => ref($self),
                 record_id    => $self->id,
                 type         => 'update',
@@ -84,7 +86,7 @@ sub import {
         $caller->add_trigger(before_delete => sub {
             my $self = shift;
 
-            my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+            my $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => Jifty::CurrentUser->superuser);
             $change->create(
                 record_class => ref($self),
                 record_id    => $self->id,
@@ -132,13 +134,14 @@ sub start_change {
     my $type = shift || 'update';
 
     my %args = (
+        created_by   => $self->current_user->id,
         record_class => ref($self),
         record_id    => $self->id,
         type         => $type,
         @_,
     );
 
-    my $change = Jifty::Plugin::RecordHistory::Model::Change->new;
+    my $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => Jifty::CurrentUser->superuser);
     if ($type eq 'update') {
         $change->deferred_create(%args);
     }
