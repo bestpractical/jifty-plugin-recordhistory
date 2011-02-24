@@ -54,7 +54,6 @@ sub import {
             $change
         };
 
-        # TODO: capture old_value somehow
         $change->add_change_field(
             field     => $args{column},
             old_value => $args{old_value},
