@@ -90,20 +90,21 @@ L<Jifty::View::Declare::CRUD>.
 
 =head2 Access control
 
-By default, we delegate
-L<Jifty::Plugin::RecordHistory::Model::Change/current_user_can> and
-L<Jifty::Plugin::RecordHistory::Model::ChangeField/current_user_can> to the
-record class. The logic is if you can read the record, you can read its changes
-and its change fields. If you can change the record you can create, update, and
-delete changes and their change fields. If you want more fine-grained control
-over this, you can implement a C<current_user_can_for_change> method in your
-record class which, if present, we will use instead of this logic.
+When we read a Change record, we simply ask if the current user can read the
+corresponding record.
 
-When we create a Change record, we do it as the superuser because if by
+Otherwise, when we create (or update or delete) Change records, we demand that
+the current user is a superuser. In our C<after_set> and C<before_delete>
+hooks, we perform these operations as superuser.
+
+We require superuser so that ordinary users cannot use
+L<Jifty::Plugin::REST> or similar to inject forged Change entries.
+
+Also, when we create a Change record, we do it as the superuser because if by
 updating a record the ordinary user loses access to update the record, then
-they will get a permission error when we go to create the corresponding
-Change. So not only does that change not end up in the record's history, but
-also Jifty complains permission denied to the user directly.
+they will get a permission error when we go to create the corresponding Change.
+So not only does that change never end up in the record's history, but also
+Jifty complains permission denied to the user directly.
 
 =head1 SEE ALSO
 
