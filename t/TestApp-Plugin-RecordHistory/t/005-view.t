@@ -20,8 +20,8 @@ $book->set_author('Aldous Huxley');
 $book->end_change;
 
 $mech->get_ok($URL . '/book/history?id=' . $book->id);
-$mech->text_contains("Book created by 0");
-$mech->text_contains("Book updated by 0");
+$mech->text_contains("Book created by somebody");
+$mech->text_contains("Book updated by somebody");
 $mech->text_contains("title changed from 1984 to Brave New World");
 $mech->text_contains("author changed from (no value) to Aldous Huxley");
 
