@@ -52,7 +52,7 @@ is($change_field->old_value, 'Hello world');
 is($change_field->current_user->id, $user->id, 'current user is the user not superuser');
 ok(!$change_field->current_user->is_superuser, 'not superuser');
 
-$ticket->set_updatable(0);
+$ticket->set_forced_updatable(0);
 
 isa_ok($ticket->changes, 'Jifty::Plugin::RecordHistory::Model::ChangeCollection');
 is($ticket->changes->count, 3, 'three changes');
@@ -66,7 +66,7 @@ ok(!$change->current_user->is_superuser, 'not superuser');
 
 my $change_field = $change->change_fields->first;
 is($change_field->change->id, $change->id, 'associated with the right change');
-is($change_field->field, 'updatable');
+is($change_field->field, 'forced_updatable');
 is($change_field->new_value, 0);
 is($change_field->old_value, 1);
 
@@ -74,8 +74,8 @@ is($change_field->current_user->id, $user->id, 'current user is the user not sup
 ok(!$change_field->current_user->is_superuser, 'not superuser');
 
 # make sure we don't create spurious changes when a record couldn't be updated
-$ticket->set_updatable(1);
-is($ticket->updatable, 0, "ticket was not updated");
+$ticket->set_forced_updatable(1);
+is($ticket->forced_updatable, 0, "ticket was not updated");
 is($ticket->changes->count, 3, "still only three changes since we couldn't update the record");
 
 $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => $current_user);

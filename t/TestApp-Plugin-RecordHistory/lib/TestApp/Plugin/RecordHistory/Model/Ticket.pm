@@ -7,13 +7,13 @@ use Jifty::DBI::Schema;
 use TestApp::Plugin::RecordHistory::Record schema {
     column subject =>
         type is 'varchar';
-    column readable =>
+    column forced_readable =>
         type is 'integer',
         default is 1;
-    column updatable =>
+    column forced_updatable =>
         type is 'integer',
         default is 1;
-    column deletable =>
+    column forced_deletable =>
         type is 'integer',
         default is 1;
 };
@@ -25,9 +25,9 @@ sub current_user_can {
     my $right = shift;
 
     return 1 if $right eq 'create';
-    return 1 if $right eq 'read'   && $self->__value('readable');
-    return 1 if $right eq 'update' && $self->__value('updatable');
-    return 1 if $right eq 'delete' && $self->__value('deletable');
+    return 1 if $right eq 'read'   && $self->__value('forced_readable');
+    return 1 if $right eq 'update' && $self->__value('forced_updatable');
+    return 1 if $right eq 'delete' && $self->__value('forced_deletable');
 
     return $self->SUPER::current_user_can($right, @_);
 }
