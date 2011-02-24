@@ -1,3 +1,6 @@
+0.05  2011-02-24
+    - Refactor current_user_can to be simpler and more correct (Sartak)
+
 0.04  2011-02-18
     - Allow control of cascaded_delete (Sartak)
     - Allow control over current_user_can on Change and ChangeField by
