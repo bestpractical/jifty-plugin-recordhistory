@@ -76,15 +76,10 @@ sub delegate_current_user_can {
     my $right = shift;
     my %args  = @_;
 
-    my $record = $self->__record(%args);
+    return $self->__record(%args)->current_user_can($right) if $right eq 'read';
 
-    if ($record->can('current_user_can_for_change')) {
-        return $record->current_user_can_for_change($right, %args, change => $self);
-    }
-
-    $right = 'update' if $right ne 'read';
-
-    return $self->__record(%args)->current_user_can($right);
+    # only superuser can create, update, and delete change entries
+    return $self->current_user->is_superuser;
 }
 
 sub add_change_field {
