@@ -37,7 +37,7 @@ sub import {
 
     $caller->add_trigger(after_set => sub {
         my $self = shift;
-        my %args   = (
+        my %args = (
             column    => undef,
             value     => undef,
             old_value => undef,
