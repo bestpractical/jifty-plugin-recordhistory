@@ -24,6 +24,7 @@ sub current_user_can {
     my $self  = shift;
     my $right = shift;
 
+    return 1 if $right eq 'create';
     return 1 if $right eq 'read'   && $self->__value('readable');
     return 1 if $right eq 'update' && $self->__value('updatable');
     return 1 if $right eq 'delete' && $self->__value('deletable');
