@@ -14,3 +14,4 @@ t/t/mailbox_*
 t/testapp_plugin_*
 t/TestApp-Plugin-RecordHistory/t/mailbox_*
 t/TestApp-Plugin-RecordHistory/testapp_plugin_*
+inc/.author
