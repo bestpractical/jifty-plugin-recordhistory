@@ -99,6 +99,12 @@ delete changes and their change fields. If you want more fine-grained control
 over this, you can implement a C<current_user_can_for_change> method in your
 record class which, if present, we will use instead of this logic.
 
+When we create a Change record, we do it as the superuser because if by
+updating a record the ordinary user loses access to update the record, then
+they will get a permission error when we go to create the corresponding
+Change. So not only does that change not end up in the record's history, but
+also Jifty complains permission denied to the user directly.
+
 =head1 SEE ALSO
 
 L<Jifty::Plugin::ActorMetadata>
