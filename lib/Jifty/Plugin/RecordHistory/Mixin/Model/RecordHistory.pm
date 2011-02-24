@@ -69,6 +69,8 @@ sub import {
             my $self = shift;
 
             my $changes = $self->changes;
+            $changes->current_user(Jifty::CurrentUser->superuser);
+
             while (my $change = $changes->next) {
                 my $change_fields = $change->change_fields;
                 while (my $change_field = $change_fields->next) {
