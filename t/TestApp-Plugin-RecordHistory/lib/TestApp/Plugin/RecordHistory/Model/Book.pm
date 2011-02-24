@@ -13,5 +13,7 @@ use TestApp::Plugin::RecordHistory::Record schema {
 
 use Jifty::Plugin::RecordHistory::Mixin::Model::RecordHistory;
 
+sub current_user_can { 1 }
+
 1;
 

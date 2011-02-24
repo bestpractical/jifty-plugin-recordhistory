@@ -15,5 +15,7 @@ use Jifty::Plugin::RecordHistory::Mixin::Model::RecordHistory (
     delete_change => 1,
 );
 
+sub current_user_can { 1 }
+
 1;
 
