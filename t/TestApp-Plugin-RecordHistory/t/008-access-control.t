@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 40;
+use Jifty::Test::Dist tests => 41;
 
 my $user = TestApp::Plugin::RecordHistory::Model::User->new;
 $user->create(
@@ -77,4 +77,12 @@ ok(!$change_field->current_user->is_superuser, 'not superuser');
 $ticket->set_updatable(1);
 is($ticket->updatable, 0, "ticket was not updated");
 is($ticket->changes->count, 3, "still only three changes since we couldn't update the record");
+
+$change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => $current_user);
+$change->create(
+    record_class => ref($ticket),
+    record_id    => $ticket->id,
+    type         => 'forged',
+);
+ok(!$change->id, "couldn't create a change as an ordinary user");
 
