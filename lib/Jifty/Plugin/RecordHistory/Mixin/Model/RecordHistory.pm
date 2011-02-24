@@ -88,6 +88,7 @@ sub import {
 
             my $change = Jifty::Plugin::RecordHistory::Model::Change->new(current_user => Jifty::CurrentUser->superuser);
             $change->create(
+                created_by   => $self->current_user,
                 record_class => ref($self),
                 record_id    => $self->id,
                 type         => 'delete',
