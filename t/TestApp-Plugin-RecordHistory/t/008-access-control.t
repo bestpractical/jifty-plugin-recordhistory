@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 49;
+use Jifty::Test::Dist tests => 51;
 
 my $user = TestApp::Plugin::RecordHistory::Model::User->new;
 $user->create(
@@ -104,3 +104,11 @@ is($ticket->changes->current_user->id, $user->id, 'current user is the user not 
 ok(!$ticket->changes->current_user->is_superuser, 'not superuser');
 is($ticket->changes->first, undef, "no readable changes");
 
+$super_ticket->load($ticket->id);
+$super_ticket->set_forced_readable(1);
+
+# flush cache
+$ticket->load($ticket->id);
+
+is($ticket->forced_readable, 1, "ticket was updated");
+is($ticket->changes->count, 6, "all the changes");
