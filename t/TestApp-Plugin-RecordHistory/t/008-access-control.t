@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 51;
+use Jifty::Test::Dist tests => 55;
 
 my $user = TestApp::Plugin::RecordHistory::Model::User->new;
 $user->create(
@@ -112,3 +112,18 @@ $ticket->load($ticket->id);
 
 is($ticket->forced_readable, 1, "ticket was updated");
 is($ticket->changes->count, 6, "all the changes");
+
+$ticket->set_forced_deletable(0);
+$ticket->delete;
+$ticket->load($super_ticket->id);
+ok($ticket->id, 'still have a record');
+
+is($ticket->changes->count, 7, "a new change from updating the record, but we couldn't ");
+
+$ticket->set_forced_deletable(1);
+$ticket->delete;
+$ticket->load($super_ticket->id);
+ok(!$ticket->id, 'still have a record');
+
+is($ticket->changes->count, 0, "all changes gone now");
+
