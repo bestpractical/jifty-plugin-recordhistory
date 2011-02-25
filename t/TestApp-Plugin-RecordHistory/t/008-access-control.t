@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 41;
+use Jifty::Test::Dist tests => 49;
 
 my $user = TestApp::Plugin::RecordHistory::Model::User->new;
 $user->create(
@@ -85,4 +85,22 @@ $change->create(
     type         => 'forged',
 );
 ok(!$change->id, "couldn't create a change as an ordinary user");
+
+my $super_ticket = TestApp::Plugin::RecordHistory::Model::Ticket->new(current_user => Jifty::CurrentUser->superuser);
+$super_ticket->load($ticket->id);
+$super_ticket->set_forced_updatable(1);
+
+# flush cache
+$ticket->load($ticket->id);
+
+is($ticket->forced_updatable, 1, "ticket was updated");
+is($ticket->changes->count, 4, "now four changes since the superuser *could* update the record");
+
+$ticket->set_forced_readable(0);
+ok(!$ticket->current_user_can('read'), "can no longer read the ticket");
+is($ticket->subject, undef, "can no longer read ticket fields");
+isa_ok($ticket->changes, 'Jifty::Plugin::RecordHistory::Model::ChangeCollection');
+is($ticket->changes->current_user->id, $user->id, 'current user is the user not superuser');
+ok(!$ticket->changes->current_user->is_superuser, 'not superuser');
+is($ticket->changes->first, undef, "no readable changes");
 
