@@ -159,13 +159,25 @@ template 'change-update' => sub {
     my $change_fields = $change->change_fields;
     return if !$change_fields->count;
 
-    my $record = $change->record;
+    show 'change-update-record' => $change;
+    show 'change-update-fields' => $change;
+};
 
+template 'change-update-record' => sub {
+    my $self   = shift;
+    my $change = shift;
     span {
-        show 'record_type' => $record;
+        show 'record_type' => $change->record;
         outs _(' updated by ');
         show 'actor' => $change->created_by;
     };
+};
+
+template 'change-update-fields' => sub {
+    my $self   = shift;
+    my $change = shift;
+
+    my $record = $change->record;
 
     my @change_fields = grep { !$record->hide_change_field($_) }
                         @{ $change->change_fields->items_array_ref };
