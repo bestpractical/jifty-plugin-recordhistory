@@ -1,3 +1,7 @@
+0.06  2011-02-26
+    - Refactor change-update template so its components are reusable (Sartak)
+    - Bump Jifty dependency (Sartak)
+
 0.05  2011-02-24
     - Refactor current_user_can to be simpler and more correct (Sartak)
 
