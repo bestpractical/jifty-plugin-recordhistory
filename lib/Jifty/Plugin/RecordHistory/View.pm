@@ -68,6 +68,12 @@ sub load_record {
     return $record;
 }
 
+sub changes_for {
+    my $self   = shift;
+    my $record = shift;
+    return $record->changes;
+}
+
 template 'index.html' => page { title => shift->page_title } content {
     show 'list';
 };
@@ -96,7 +102,7 @@ template 'no-changes' => sub {
 template 'changes' => sub {
     my $self    = shift;
     my $record  = get 'record';
-    my $changes = $record->changes;
+    my $changes = get('changeset') || $self->changes_for($record);
 
     if ($changes->count == 0) {
         show 'no-changes';
