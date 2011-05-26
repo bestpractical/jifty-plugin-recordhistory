@@ -1,3 +1,6 @@
+0.07  not yet released
+    - Support two ways of overriding the collection of Changes displayed (trs)
+
 0.06  2011-02-26
     - Refactor change-update template so its components are reusable (Sartak)
     - Bump Jifty dependency (Sartak)
