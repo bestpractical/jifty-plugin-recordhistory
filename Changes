@@ -1,5 +1,6 @@
-0.07  not yet released
+0.07  2011-06-08
     - Support two ways of overriding the collection of Changes displayed (trs)
+    - Fix the delete_change option to work without a database error (trs)
 
 0.06  2011-02-26
     - Refactor change-update template so its components are reusable (Sartak)
