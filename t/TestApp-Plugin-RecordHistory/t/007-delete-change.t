@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Jifty::Test::Dist tests => 21;
+use Jifty::Test::Dist tests => 22;
 
 my $dvd = TestApp::Plugin::RecordHistory::Model::DVD->new;
 $dvd->create(
@@ -41,7 +41,9 @@ $dvd->delete;
 my $changes = Jifty::Plugin::RecordHistory::Model::ChangeCollection->new;
 $changes->unlimit;
 is($changes->count, 1, 'one change');
-is($changes->first->type, 'delete', 'only change is a delete');
+my $first = $changes->first;
+is($first->type, 'delete', 'only change is a delete');
+is($first->__raw_value('created_by'), $dvd->current_user->id, 'delete change created by record current user');
 
 my $change_fields = Jifty::Plugin::RecordHistory::Model::ChangeFieldCollection->new;
 $change_fields->unlimit;
