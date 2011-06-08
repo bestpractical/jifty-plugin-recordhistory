@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw/Jifty::Plugin/;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 sub init {
     Jifty->web->add_css('record-history.css');
